@@ -73,7 +73,7 @@ namespace DataStructures
             while (cur != null && cur.Data == null ? val != null : !cur.Data.Equals(val))
             {
                 cur = cur.Next;
-            }
+            }   
             return cur;
         }
 
