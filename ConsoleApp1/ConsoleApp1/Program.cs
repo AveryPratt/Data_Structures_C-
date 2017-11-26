@@ -74,7 +74,7 @@ namespace DataStructures
         {
             int count = 0;
             LinkedListNode<T> cur = this.Head;
-            while(cur != null)
+            while (cur != null)
             {
                 cur = cur.Next;
                 count++;
@@ -116,7 +116,7 @@ namespace DataStructures
             LinkedListNode<T> cur = this.Head;
             if (this.Head != null)
             {
-                while(cur.Next != node)
+                while (cur.Next != node)
                 {
                     cur = cur.Next;
                 }
