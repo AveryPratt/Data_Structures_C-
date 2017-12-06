@@ -11,19 +11,16 @@ namespace DataStructures
 		public List<T> Values { get; internal set; }
 		public Comparison<T> Comparer { get; internal set; }
 
-		public Heap(Comparison<T> comp)
+		public Heap(Comparison<T> comp, IEnumerable<T> values = null)
 		{
 			Comparer = comp;
 			Values = new List<T>();
-		}
-
-		public Heap(Comparison<T> comp, IEnumerable<T> values)
-		{
-			Comparer = comp;
-			Values = new List<T>();
-			foreach (T item in values)
+			if(values != null)
 			{
-				Push(item);
+				foreach (T item in values)
+				{
+					Push(item);
+				}
 			}
 		}
 
