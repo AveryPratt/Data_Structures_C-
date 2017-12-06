@@ -8,17 +8,18 @@ namespace DataStructures
 {
 	class Heap<T>
 	{
-		public List<T> Values { get; set; }
-		public Comparison<T> Comp { get; set; }
+		public List<T> Values { get; internal set; }
+		public Comparison<T> Comparer { get; internal set; }
 
 		public Heap(Comparison<T> comp)
 		{
-			Comp = comp;
+			Comparer = comp;
+			Values = new List<T>();
 		}
 
 		public Heap(Comparison<T> comp, IEnumerable<T> values)
 		{
-			Comp = comp;
+			Comparer = comp;
 			Values = new List<T>();
 			foreach (T item in values)
 			{
@@ -34,7 +35,7 @@ namespace DataStructures
 		{
 			int idx = Values.Count;
 			Values.Add(data);
-			while (idx < 1 && Comp(Values[idx], Values[(idx - 1) / 2]) == 1)
+			while (idx > 0 && Comparer(Values[idx], Values[(idx - 1) / 2]) == 1)
 			{
 				T temp = Values[idx];
 				Values[idx] = Values[(idx - 1) / 2];
@@ -51,9 +52,9 @@ namespace DataStructures
 		{
 			T val = Values[0];
 			int idx = 0;
-			while (Values.Count >= idx * 2)
+			while (Values.Count >= idx * 2 + 2)
 			{
-				if (Values.Count != idx * 2 && Comp(Values[idx * 2 + 2], Values[idx * 2 + 1]) == 1)
+				if (Values.Count != idx * 2 + 2 && Comparer(Values[idx * 2 + 2], Values[idx * 2 + 1]) == 1)
 				{
 					Values[idx] = Values[idx * 2 + 2];
 					idx = idx * 2 + 2;
