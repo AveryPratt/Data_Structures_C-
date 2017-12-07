@@ -68,12 +68,19 @@ namespace DataStructures
         /// <returns></returns>
         public LinkedListNode<T> Search(T val)
         {
-            LinkedListNode<T> cur = this.Head;
-            while (cur != null && cur.Data == null ? val != null : !cur.Data.Equals(val))
-            {
-                cur = cur.Next;
-            }   
-            return cur;
+			LinkedListNode<T> cur = Head;
+			while (cur != null)
+			{
+				if (cur.Data == null ? val != null : !cur.Data.Equals(val))
+				{
+					cur = cur.Next;
+				}
+				else
+				{
+					return cur;
+				}
+			}
+			return null;
         }
 
         /// <summary>
@@ -95,11 +102,17 @@ namespace DataStructures
             LinkedListNode<T> cur = this.Head;
             if (this.Head != null)
             {
-                while (cur.Next != node)
-                {
-                    cur = cur.Next;
-                }
-                cur.Next = node.Next;
+				while (cur != null)
+				{
+					if (cur.Next != node)
+					{
+						cur = cur.Next;
+					}
+					else
+					{
+						cur.Next = node.Next;
+					}
+				}
             }
         }
 
@@ -116,7 +129,7 @@ namespace DataStructures
             {
                 if (cur.Data == null)
                 {
-                    bldr.Append("null");
+                    bldr.Append("<null>");
                 }
                 else
                 {
