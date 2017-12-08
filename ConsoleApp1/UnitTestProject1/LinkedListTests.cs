@@ -72,7 +72,6 @@ namespace UnitTestProject1
 			list.Push("first");
 			list.Push("second");
 			list.Push("third");
-			var thing = list.Search("fourth");
 			Assert.AreEqual(list.Search("fourth"), null);
 		}
 
@@ -88,6 +87,14 @@ namespace UnitTestProject1
 		}
 
 		[TestMethod]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public void TestLinkedListRemoveHeadNegative()
+		{
+			LinkedList<string> list = new LinkedList<string>();
+			list.Remove(list.Head);
+		}
+
+		[TestMethod]
 		public void TestLinkedListRemovePositive()
 		{
 			LinkedList<string> list = new LinkedList<string>();
@@ -96,14 +103,6 @@ namespace UnitTestProject1
 			list.Push("third");
 			list.Remove(list.Head.Next);
 			Assert.AreEqual(list.Head.Next.Data, "first");
-		}
-
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
-		public void TestLinkedListRemoveHeadNegative()
-		{
-			LinkedList<string> list = new LinkedList<string>();
-			list.Remove(list.Head);
 		}
 
 		[TestMethod]
