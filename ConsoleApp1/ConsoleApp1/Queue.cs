@@ -9,13 +9,22 @@ namespace DataStructures
     {
         public DoublyLinkedList<T> List { get; set; }
 
+		public Queue()
+		{
+			List = new DoublyLinkedList<T>();
+		}
+
         public void Enqueue(T val)
         {
-            this.List.Append(val);
+            this.List.Push(val);
         }
         
         public T Dequeue()
         {
+			if (this.List.Tail == null)
+			{
+				throw new InvalidOperationException("Cannot dequeue from an empty queue.");
+			}
             return this.List.Shift();
         }
 
@@ -33,6 +42,10 @@ namespace DataStructures
 
         public T Peek()
         {
+			if (List.Tail == null)
+			{
+				throw new InvalidOperationException("Cannot peek from an empty queue.");
+			}
             return List.Tail.Data;
         }
     }
