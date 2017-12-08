@@ -11,9 +11,9 @@ namespace UnitTestProject1
 		public void TestQueueEnqueue()
 		{
 			Queue<string> queue = new Queue<string>();
-			queue.Enqueue("first");
-			queue.Enqueue("second");
-			queue.Enqueue("third");
+			queue.Insert("first");
+			queue.Insert("second");
+			queue.Insert("third");
 		}
 
 		[TestMethod]
@@ -21,37 +21,37 @@ namespace UnitTestProject1
 		public void TestQueueDequeueEmpty()
 		{
 			Queue<string> queue = new Queue<string>();
-			queue.Dequeue();
+			queue.Pop();
 		}
 
 		[TestMethod]
 		public void TestQueueDequeueOnce()
 		{
 			Queue<string> queue = new Queue<string>();
-			queue.Enqueue("first");
-			queue.Enqueue("second");
-			queue.Enqueue("third");
-			Assert.AreEqual(queue.Dequeue(), "first");
+			queue.Insert("first");
+			queue.Insert("second");
+			queue.Insert("third");
+			Assert.AreEqual(queue.Pop(), "first");
 		}
 
 		[TestMethod]
 		public void TestQueueDequeueTwice()
 		{
 			Queue<string> queue = new Queue<string>();
-			queue.Enqueue("first");
-			queue.Enqueue("second");
-			queue.Enqueue("third");
-			queue.Dequeue();
-			Assert.AreEqual(queue.Dequeue(), "second");
+			queue.Insert("first");
+			queue.Insert("second");
+			queue.Insert("third");
+			queue.Pop();
+			Assert.AreEqual(queue.Pop(), "second");
 		}
 
 		[TestMethod]
 		public void TestQueueSize()
 		{
 			Queue<string> queue = new Queue<string>();
-			queue.Enqueue("first");
-			queue.Enqueue("second");
-			queue.Enqueue("third");
+			queue.Insert("first");
+			queue.Insert("second");
+			queue.Insert("third");
 			Assert.AreEqual(queue.Size(), 3);
 		}
 
@@ -67,9 +67,9 @@ namespace UnitTestProject1
 		public void TestQueuePeekOnce()
 		{
 			Queue<string> queue = new Queue<string>();
-			queue.Enqueue("first");
-			queue.Enqueue("second");
-			queue.Enqueue("third");
+			queue.Insert("first");
+			queue.Insert("second");
+			queue.Insert("third");
 			Assert.AreEqual(queue.Peek(), "first");
 		}
 
@@ -77,9 +77,9 @@ namespace UnitTestProject1
 		public void TestQueuePeekTwice()
 		{
 			Queue<string> queue = new Queue<string>();
-			queue.Enqueue("first");
-			queue.Enqueue("second");
-			queue.Enqueue("third");
+			queue.Insert("first");
+			queue.Insert("second");
+			queue.Insert("third");
 			queue.Peek();
 			Assert.AreEqual(queue.Peek(), "first");
 		}

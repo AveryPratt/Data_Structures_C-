@@ -14,12 +14,12 @@ namespace DataStructures
 			List = new DoublyLinkedList<T>();
 		}
 
-        public void Enqueue(T val)
+        public void Insert(T val)
         {
             this.List.Push(val);
         }
         
-        public T Dequeue()
+        public T Pop()
         {
 			if (this.List.Tail == null)
 			{
