@@ -40,6 +40,10 @@ namespace DataStructures
         /// <returns></returns>
         public T Pop()
         {
+			if (this.Head == null)
+			{
+				throw new InvalidOperationException("Cannot pop from an empty list.");
+			}
             T val = this.Head.Data;
             this.Head = this.Head.Next;
             return val;

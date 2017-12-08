@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-	class Heap<T>
+	public class Heap<T>
 	{
 		public List<T> Values { get; internal set; }
 		public Comparison<T> Comparer { get; internal set; }

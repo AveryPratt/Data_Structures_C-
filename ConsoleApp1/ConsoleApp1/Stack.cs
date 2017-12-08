@@ -5,18 +5,27 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-    class Stack<T>
+    public class Stack<T>
     {
         public LinkedList<T> List { get; private set; }
 
+		public Stack()
+		{
+			List = new LinkedList<T>();
+		}
+
         public void Push(T val)
         {
-            this.List.Push(val);
+            List.Push(val);
         }
 
         public T Pop()
         {
-            return this.List.Pop();
+			if (List.Size() == 0)
+			{
+				throw new InvalidOperationException("Cannot pop from an empty stack.");
+			}
+            return List.Pop();
         }
     }
 }

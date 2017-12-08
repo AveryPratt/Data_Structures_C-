@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-	class PriorityQueue<T>
+	public class PriorityQueue<T>
 	{
 		public Heap<Tuple<T, int>> Heap { get; set; }
 

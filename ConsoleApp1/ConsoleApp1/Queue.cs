@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-    class Queue<T>
+    public class Queue<T>
     {
         public DoublyLinkedList<T> List { get; set; }
 

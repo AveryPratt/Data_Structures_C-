@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-	class TrieNode
+	public class TrieNode
 	{
 		public char? Value { get; set; }
 		public int Depth { get; set; }
