@@ -16,7 +16,7 @@ namespace DataStructures
         
         public T Dequeue()
         {
-            return this.List.Shift().Data;
+            return this.List.Shift();
         }
 
         public int Size()
