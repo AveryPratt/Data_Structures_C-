@@ -65,8 +65,12 @@ namespace DataStructures
 		/// </summary>
 		/// <returns></returns>
         public T Pop()
-        {
-            DoublyLinkedListNode<T> node = this.Head;
+		{
+			if (this.Head == null)
+			{
+				throw new InvalidOperationException("Cannot pop from an empty list.");
+			}
+			DoublyLinkedListNode<T> node = this.Head;
             this.Head = this.Head.Next;
             this.Head.Previous = null;
             node.Next = null;
@@ -78,8 +82,12 @@ namespace DataStructures
 		/// </summary>
 		/// <returns></returns>
 		public T Shift()
-        {
-            DoublyLinkedListNode<T> node = this.Tail;
+		{
+			if (this.Tail == null)
+			{
+				throw new InvalidOperationException("Cannot shift from an empty list.");
+			}
+			DoublyLinkedListNode<T> node = this.Tail;
             this.Tail = this.Tail.Previous;
             this.Tail.Next = null;
             node.Previous = null;

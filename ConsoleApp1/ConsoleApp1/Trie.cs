@@ -7,31 +7,29 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-	class TrieNode
+	public class TrieNode
 	{
-		public char? Value { get; set; }
 		public int Depth { get; set; }
 		public TrieNode Parent { get; set; }
-		public List<TrieNode> Children { get; set; }
+		public Dictionary<char, TrieNode> Children { get; set; }
 		public bool IsEnd { get; set; }
 
-		public TrieNode(char? val, int depth, TrieNode parent)
+		public TrieNode(int depth, TrieNode parent)
 		{
-			Value = val;
 			Depth = depth;
 			Parent = parent;
-			Children = new List<TrieNode>();
+			Children = new Dictionary<char, TrieNode>();
 			IsEnd = false;
 		}
 	}
 
-	class Trie : IEnumerable<string>
+	public class Trie : IEnumerable<string>
 	{
 		public TrieNode Head { get; set; }
 
 		public Trie()
 		{
-			Head = new TrieNode(null, -1, null);
+			Head = new TrieNode(-1, null);
 		}
 
 		/// <summary>
@@ -43,15 +41,15 @@ namespace DataStructures
 			TrieNode parent = Head;
 			for (int i = 0; i < val.Length; i++)
 			{
-				if (!parent.Children.Any(n => n.Value == val[i]))
+				if (!parent.Children.Keys.Contains(val[i]))
 				{
-					TrieNode newParent = new TrieNode(val[i], i, parent);
-					parent.Children.Add(newParent);
+					TrieNode newParent = new TrieNode(i, parent);
+					parent.Children[val[i]] = newParent;
 					parent = newParent;
 				}
 				else
 				{
-					parent = parent.Children.First(n => n.Value == val[i]);
+					parent = parent.Children[val[i]];
 				}
 			}
 			parent.IsEnd = true;
@@ -67,13 +65,13 @@ namespace DataStructures
 			TrieNode parent = Head;
 			for (int i = 0; i < val.Length; i++)
 			{
-				if (!parent.Children.Any(n => n.Value == val[i]))
+				if (!parent.Children.Keys.Contains(val[i]))
 				{
 					return false;
 				}
 				else
 				{
-					parent = parent.Children.First(n => n.Value == val[i]);
+					parent = parent.Children[val[i]];
 				}
 			}
 			return parent.IsEnd;
@@ -99,22 +97,26 @@ namespace DataStructures
 		/// <param name="val"></param>
 		public void Remove(string val)
 		{
+			if (String.IsNullOrEmpty(val))
+			{
+				throw new ArgumentException("Value must be a non-empty string.");
+			}
 			TrieNode last = Head;
 			char lastVal = ' ';
 			bool cut = false;
 			TrieNode parent = Head;
 			for (int i = 0; i < val.Length; i++)
 			{
-				if (!parent.Children.Any(n => n.Value == val[i]) || (i == val.Length - 1 && !parent.Children.First(n => n.Value == val[i]).IsEnd))
+				if (!parent.Children.Keys.Contains(val[i]) || (i == val.Length - 1 && !parent.Children[val[i]].IsEnd))
 				{
-					throw new Exception(String.Format("value {0} doesn't exist in trie.", val));
+					throw new InvalidOperationException(String.Format("Value \"{0}\" doesn't exist in trie.", val));
 				}
 				if (parent.IsEnd || parent.Children.Count > 1)
 				{
 					last = parent;
 					lastVal = val[i];
 				}
-				parent = parent.Children.First(n => n.Value == val[i]);
+				parent = parent.Children[val[i]];
 				if (i == val.Length - 1)
 				{
 					parent.IsEnd = false;
@@ -126,27 +128,42 @@ namespace DataStructures
 			}
 			if (cut)
 			{
-				last.Children.Remove(last.Children.First(n => n.Value == lastVal));
+				last.Children.Remove(lastVal);
 			}
+		}
+
+		public string GetValues()
+		{
+			StringBuilder bldr = new StringBuilder();
+			foreach (string val in this)
+			{
+				bldr.Append(val + '\n');
+			}
+			return bldr.ToString();
 		}
 
 		public IEnumerator<string> GetEnumerator()
 		{
 			StringBuilder bldr = new StringBuilder();
-			Stack<TrieNode> stack = new Stack<TrieNode>();
-			stack.Push(Head);
+			Stack<Tuple<TrieNode, char?>> stack = new Stack<Tuple<TrieNode, char?>>();
+			stack.Push(new Tuple<TrieNode, char?>(Head, null));
 			while (stack.List.Size() > 0)
 			{
-				TrieNode cur = stack.Pop();
-				bldr.Append(cur.Value);
-				if (cur.IsEnd)
+				Tuple<TrieNode, char?> cur = stack.Pop();
+				bldr.Append(cur.Item2);
+				if (cur.Item1.IsEnd)
 				{
 					yield return bldr.ToString();
-					bldr.Clear();
+					int? cont = stack.List.Head?.Data.Item1.Depth;
+					if (cont != null)
+					{
+						int idx = (int)cont;
+						bldr.Remove(idx, bldr.Length - idx);
+					}
 				}
-				foreach (TrieNode node in cur.Children)
+				foreach (char key in cur.Item1.Children.Keys)
 				{
-					stack.Push(node);
+					stack.Push(new Tuple<TrieNode, char?>(cur.Item1.Children[key], key));
 				}
 			}
 		}

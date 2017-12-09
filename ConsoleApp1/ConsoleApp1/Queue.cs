@@ -5,17 +5,26 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-    class Queue<T>
+    public class Queue<T>
     {
         public DoublyLinkedList<T> List { get; set; }
 
-        public void Enqueue(T val)
+		public Queue()
+		{
+			List = new DoublyLinkedList<T>();
+		}
+
+        public void Insert(T val)
         {
-            this.List.Append(val);
+            this.List.Push(val);
         }
         
-        public T Dequeue()
+        public T Pop()
         {
+			if (this.List.Tail == null)
+			{
+				throw new InvalidOperationException("Cannot pop from an empty queue.");
+			}
             return this.List.Shift();
         }
 
@@ -33,6 +42,10 @@ namespace DataStructures
 
         public T Peek()
         {
+			if (List.Tail == null)
+			{
+				throw new InvalidOperationException("Cannot peek from an empty queue.");
+			}
             return List.Tail.Data;
         }
     }

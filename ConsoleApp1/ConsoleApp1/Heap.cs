@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-	class Heap<T>
+	public class Heap<T>
 	{
 		public List<T> Values { get; internal set; }
 		public Comparison<T> Comparer { get; internal set; }
@@ -61,6 +61,10 @@ namespace DataStructures
 		/// <returns></returns>
 		public T Pop()
 		{
+			if (Values.Count == 0)
+			{
+				throw new InvalidOperationException("Cannot pop from an empty heap.");
+			}
 			T val = Values[0];
 			bubble(0);
 			return val;
