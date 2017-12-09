@@ -23,7 +23,7 @@ namespace DataStructures
         {
 			if (this.List.Tail == null)
 			{
-				throw new InvalidOperationException("Cannot dequeue from an empty queue.");
+				throw new InvalidOperationException("Cannot pop from an empty queue.");
 			}
             return this.List.Shift();
         }

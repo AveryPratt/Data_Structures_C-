@@ -22,12 +22,20 @@ namespace DataStructures
 
 		public T Pop()
 		{
+			if (Heap.Values.Count == 0)
+			{
+				throw new InvalidOperationException("Cannot pop from an empty priority queue.");
+			}
 			return Heap.Pop().Item1;
 		}
 
 		public T Peek()
 		{
-			return Heap.Values.Count > 0 ? Heap.Values[0].Item1 : default(T);
+			if (Heap.Values.Count == 0)
+			{
+				throw new InvalidOperationException("Cannot peek from an empty priority queue.");
+			}
+			return Heap.Values[0].Item1;
 		}
 	}
 }
