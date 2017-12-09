@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HeapTests.cs" />
+    <Compile Include="TrieTests.cs" />
     <Compile Include="PriorityQueueTests.cs" />
     <Compile Include="QueueTests.cs" />
     <Compile Include="StackTests.cs" />
