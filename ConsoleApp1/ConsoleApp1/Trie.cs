@@ -132,6 +132,16 @@ namespace DataStructures
 			}
 		}
 
+		public string GetValues()
+		{
+			StringBuilder bldr = new StringBuilder();
+			foreach (string val in this)
+			{
+				bldr.Append(val + '\n');
+			}
+			return bldr.ToString();
+		}
+
 		public IEnumerator<string> GetEnumerator()
 		{
 			StringBuilder bldr = new StringBuilder();
@@ -144,8 +154,12 @@ namespace DataStructures
 				if (cur.Item1.IsEnd)
 				{
 					yield return bldr.ToString();
-					int idx = stack.List.Head.Data.Item1.Depth;
-					bldr.Remove(idx, bldr.Length - idx);
+					int? cont = stack.List.Head?.Data.Item1.Depth;
+					if (cont != null)
+					{
+						int idx = (int)cont;
+						bldr.Remove(idx, bldr.Length - idx);
+					}
 				}
 				foreach (char key in cur.Item1.Children.Keys)
 				{

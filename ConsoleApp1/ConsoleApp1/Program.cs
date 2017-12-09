@@ -9,6 +9,13 @@ namespace DataStructures
     {
         static void Main(string[] args)
         {
+			Trie trie = new Trie();
+			trie.Insert("hi");
+			trie.Insert("ha");
+			trie.Insert("apple");
+			trie.Insert("hello");
+			Console.WriteLine(trie.GetValues());
+			Console.ReadLine();
 		}
     }
 }

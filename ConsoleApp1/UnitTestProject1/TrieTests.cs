@@ -89,5 +89,31 @@ namespace UnitTestProject1
 			trie.Insert("hi");
 			trie.Remove("ha");
 		}
+
+		[TestMethod]
+		public void TestTrieGetValuesEmpty()
+		{
+			Trie trie = new Trie();
+			Assert.AreEqual(trie.GetValues(), "");
+		}
+
+		[TestMethod]
+		public void TestTrieGetValues()
+		{
+			Trie trie = new Trie();
+			trie.Insert("hi");
+			Assert.AreEqual(trie.GetValues(), "hi\n");
+		}
+
+		[TestMethod]
+		public void TestTrieGetValuesBranches()
+		{
+			Trie trie = new Trie();
+			trie.Insert("ha");
+			trie.Insert("hi");
+			trie.Insert("happy");
+			var thing = trie.GetValues();
+			Assert.AreEqual(trie.GetValues(), "hi\nha\nhappy\n");
+		}
 	}
 }
